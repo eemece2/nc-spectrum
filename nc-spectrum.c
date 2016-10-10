@@ -92,8 +92,12 @@ void display_spectrum(WINDOW *win, int xpos, int ypos, float valores[])
     int h = 5;
     wclear(win);
     for(x = 0; x <= 20; ++x) {
-        display_spectrum_bar(win, x, (int)valores[x]);
+        display_spectrum_bar(win, x*2, (int)valores[x]);
     }
+    /*char tmp[10];*/
+    /*sprintf(tmp, "%2.0f", valores[0]);*/
+    /*mvwprintw(win, 5, 2, tmp);*/
+
     wrefresh(win);
 }
 
@@ -101,7 +105,11 @@ void display_spectrum_bar(WINDOW *win, int x, int h)
 {
     int y;
     for(y = 0; y <= h; ++y) {
-        mvwaddch(win, 20 - y, x, ' '|A_REVERSE);
+        if(h > 0) {
+            mvwaddch(win, 20 - y, x, ' '|A_REVERSE);
+        } else {
+            mvwaddch(win, 20 - y, x, '_');
+        }
     }
 }
 
